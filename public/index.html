@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SevillaCheats</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sağ üst köşe butonları */
+    .auth-buttons {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+    }
+
+    .auth-buttons a {
+      margin-left: 10px;
+      padding: 8px 16px;
+      border-radius: 50px; /* Kenarları tamamen oval */
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .signup-btn {
+      background-color: #28A745;
+      color: white;
+    }
+
+    .login-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .signup-btn:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menü -->
+  <nav>
+    <a href="spoofers.html">SPOOFERS</a>
+    <div class="dropdown">
+      <a href="#">CHEATS</a>
+      <div class="dropdown-content">
+        <a href="cheats.html"><img src="cs2.png" alt="CS2" /> CS2 - Pro Hile / Standart Hile</a>
+        <a href="cheats.html"><img src="valorant.jpeg" alt="Valorant" /> Valorant - Standart Hile</a>
+      </div>
+    </div>
+
+    <!-- Sağ üst köşe butonları -->
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">Giriş Yap</a>
+      <a href="register.html" class="signup-btn">Kayıt Ol</a>
+    </div>
+
+    <div id="preloader">
+      <img src="logo.png" alt="Logo" class="preloader-logo">
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <img src="logo.png" alt="SevillaCheats Logo" class="logo" />
+      <h1>SevillaCheats</h1>
+      <p>Premium Cheats & Tools</p>
+      <a href="#about" class="btn-primary">İncele</a>
+    </div>
+  </header>
+
+  <!-- Kullanıcı sayısı -->
+  <div class="user-count-bottom">1200+ Kullanıcı</div>
+
+  <!-- Hakkında Bölümü -->
+  <section id="about" class="about-section">
+    <h2>Hakkında</h2>
+    <p>
+      SevillaCheats, kullanıcılarına premium hileler ve yazılımlar sunan bir platformdur.
+      1200’den fazla kullanıcıyla büyüyen topluluğumuz güvenilirlik ve kaliteye önem verir.
+    </p>
+    <h2>Neden Bizi Seçmelisiniz</h2>
+    <p>
+      Yıllardır Sevilla Cheats olarak sektördeyiz. Bu sektöre Rust hileleriyle başlayarak buralara kadar geldik.
+      Sektördeki en iyi hileleri ve spoofing hizmetlerini sunuyoruz.
+      Kullanıcılarımızın güvenliği ve memnuniyeti bizim için her şeyden önemlidir.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 SevillaCheats. Tüm hakları saklıdır.</p>
+    <p class="footer-contact">İletişim</p>
+
+    <div class="social-links">
+      <a href="https://discord.gg/GswdR7bUux" target="_blank">   
+        <img src="discord.png" alt="Discord" />
+      </a>
+      <a href="https://www.youtube.com/@Sevilla..." target="_blank">    
+        <img src="youtube.png" alt="Youtube" />
+      </a>
+    </div>
+
+    <div class="footer-left">
+      <img src="logo.png" alt="Site Logosu" class="footer-logo">
+      <p class="footer-text">©SevillaCheats</p>
+      <p class="footer-subtext">Kalitenin Adresi !</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Animasyon Scripti -->
+  <script>
+    window.addEventListener("scroll", function() {
+      const about = document.getElementById("about");
+      const position = about.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+
+      if (position < screenHeight - 100) {
+        about.classList.add("visible");
+      }
+    });
+
+    const preloader = document.getElementById("preloader");
+
+    // Sayfa ilk yüklenirken 1sn göster
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        preloader.classList.add("fade-out");
+        setTimeout(() => preloader.style.display = "none", 500);
+      }, 1000);
+    });
+
+    // Sayfa linklerine tıklanınca tekrar logo göster
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        const href = link.getAttribute("href");
+
+        // boş veya # olan linkleri etkileme
+        if (!href || href.startsWith("#")) return;
+
+        e.preventDefault(); // direkt gitmesini engelle
+        preloader.style.display = "flex";
+        preloader.classList.remove("fade-out");
+
+        setTimeout(() => {
+          window.location.href = href; // 1sn sonra yönlendir
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cheats - SevillaCheats</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sağ üst köşe butonları */
+    .auth-buttons {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .auth-buttons a {
+      padding: 10px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Giriş Yap butonu */
+    .login-btn {
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      color: white;
+    }
+
+    /* Kayıt Ol butonu */
+    .signup-btn {
+      background: linear-gradient(135deg, #28A745, #1e7e34);
+      color: white;
+    }
+
+    /* Hover efekti */
+    .auth-buttons a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Anasayfa</a>
+    <a href="spoofers.html">SPOOFERS</a>
+    <a href="cheats.html" class="active">CHEATS</a>
+
+    <!-- Sağ üst köşe butonları -->
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">Giriş Yap</a>
+      <a href="register.html" class="signup-btn">Kayıt Ol</a>
+    </div>
+  </nav>
+
+  <!-- Ana içerik -->
+  <main class="section">
+    <div class="pricing-grid">
+      <section id="cheats" class="section">
+        <a href="index.html" class="btn-primary">SOON</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <img src="logo.png" alt="Logo" class="preloader-logo">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 SevillaCheats. Tüm hakları saklıdır.</p>
+    <p>İletişim</p>
+    <div class="social-links">
+      <a href="https://discord.gg/GswdR7bUux" target="_blank">
+        <img src="discord.png" alt="Discord" />
+      </a>
+      <a href="https://www.youtube.com/@Sevilla..." target="_blank">
+        <img src="youtube.png" alt="Youtube" />
+      </a>
+    </div>
+  </footer>
+
+  <!-- Preloader Script -->
+  <script>
+    const preloader = document.getElementById("preloader");
+
+    // Sayfa ilk yüklenirken 1sn göster
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        preloader.classList.add("fade-out");
+        setTimeout(() => preloader.style.display = "none", 500);
+      }, 1000);
+    });
+
+    // Sayfa linklerine tıklanınca tekrar logo göster
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        const href = link.getAttribute("href");
+
+        // boş veya # olan linkleri etkileme
+        if (!href || href.startsWith("#")) return;
+
+        e.preventDefault(); // direkt gitmesini engelle
+        preloader.style.display = "flex";
+        preloader.classList.remove("fade-out");
+
+        setTimeout(() => {
+          window.location.href = href; // 1sn sonra yönlendir
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

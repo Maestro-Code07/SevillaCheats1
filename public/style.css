@@ -1,0 +1,601 @@
+:root {
+  --bg: #070b14;
+  --panel: #0e1422;
+  --muted: #94a3b8;
+  --text: #e6edf3;
+  --primary: #ff2e2e;
+  --radius: 18px;
+  --shadow: 0 10px 25px rgba(0,0,0,.45),
+            inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", sans-serif;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #0a0e18;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* Dropdown Menü */
+.dropdown {
+  position: relative;
+}
+
+.dropdown > a::after {
+  content: " ▾";
+  font-size: 0.8rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 220px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.dropdown-content a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s;
+  font-weight: normal;
+}
+
+.dropdown-content a:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--primary);
+}
+
+.dropdown-content img {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background: radial-gradient(circle at top, #1a1f2c, #070b14);
+  padding-top: 4rem;
+}
+
+.hero-content {
+  animation: fadeIn 2s ease forwards;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  color: var(--primary);
+  text-shadow: 0 0 25px rgba(255,0,0,0.8);
+  animation: glow 2s infinite alternate;
+}
+
+.hero-content p {
+  color: var(--muted);
+  margin: 0.5rem 0 1.5rem;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 1s;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(255,0,0,0.7);
+  transition: 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.btn-primary:hover {
+  background: #ff5050;
+  box-shadow: 0 0 30px rgba(255,0,0,0.9);
+}
+
+/* Logo */
+.logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 30px rgba(255,0,0,0.9));
+  opacity: 0;
+  animation: fadeInDown 1.5s ease forwards;
+}
+
+/* Sections */
+.section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.pricing-grid {
+  display: flex;
+  justify-content: center; 
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;  /* Grid üstüne boşluk */
+}
+
+
+.price-card {
+  background-color: #0b0c10;
+  color: #fff;
+  padding: 25px;         /* İç boşluğu büyüttüm */
+  border-radius: 16px;
+  width: 320px;          /* Kart genişliği */
+  min-height: 380px;     /* Kart yüksekliği */
+  text-align: center;
+  font-size: 15px;       /* Yazılar biraz daha büyük */
+}
+
+.price-card.best {
+  border: 2px solid #FFD700;
+  box-shadow: 
+    0 0 5px #FFD700,
+    0 0 10px #FFD700,
+    0 0 15px #FFD700;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  top: -20px;
+  z-index: 10;
+}
+
+/* POPULER yazısı */
+.price-card.best::before {
+  content: "POPÜLER";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #FF0000;
+  text-shadow: 
+    0 0 8px #FF0000,
+    0 0 15px #FFD700,
+    0 0 20px #FF00FF;
+  animation: pop-glow 1.5s infinite alternate;
+  z-index: 15;
+}
+
+@keyframes pop-glow {
+  0% {
+    color: #FF0000;
+    text-shadow: 0 0 5px #FF0000, 0 0 10px #FFD700, 0 0 15px #FF00FF;
+  }
+  25% {
+    color: #FF7F00;
+    text-shadow: 0 0 5px #FF7F00, 0 0 10px #FFFF00, 0 0 15px #FF00FF;
+  }
+  50% {
+    color: #FFFF00;
+    text-shadow: 0 0 5px #FFFF00, 0 0 10px #00FF00, 0 0 15px #FF00FF;
+  }
+  75% {
+    color: #00FF00;
+    text-shadow: 0 0 5px #00FF00, 0 0 10px #00FFFF, 0 0 15px #FF00FF;
+  }
+  100% {
+    color: #FF0000;
+    text-shadow: 0 0 5px #FF0000, 0 0 10px #FFD700, 0 0 15px #FF00FF;
+  }
+}
+
+.price-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(255,0,0,0.8);
+}
+
+
+.price-card .price {
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 44px; /* Başlık boyutu */
+}
+
+.price-card .price {
+  font-size: 30px;       /* Fiyat daha büyük gözüksün */
+  font-weight: bold;
+  margin: 12px 0;
+  color: #FF0000; /* Tüm fiyatlar kırmızı olacak */
+}
+
+.price-card ul {
+  list-style: none;   /* Noktaları kaldırır */
+  padding: 0;         /* Soldaki boşluğu da siler */
+  margin: 0;
+  font-size: 14px;
+}
+.price-card h3 {
+  font-size: 27px;      /* Başlık boyutu */
+  font-weight: 600;      /* Kalınlık: 100-900 arası değer alır */
+  margin-bottom: 12px;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+
+
+.price-card ul li {
+  margin: 6px 0;
+}
+
+/* Footer */
+footer {
+  background: #1f2833;
+  padding: 10px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-left {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  text-align: left;
+}
+
+.footer-logo {
+  width: 60px;
+  height: auto;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.footer-main {
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-sub {
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Ortadaki yazılar */
+footer p {
+  margin: 5px 0; /* Az boşluk */
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 15px rgba(255,0,0,0.5), 0 0 30px rgba(255,0,0,0.3); }
+  to { text-shadow: 0 0 25px rgba(255,0,0,0.9), 0 0 50px rgba(255,0,0,0.7); }
+}
+
+.user-count-bottom {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #4caf50;
+  margin: 40px 0 20px 0;
+  text-shadow: 0 0 12px rgba(0, 255, 0, 0.9);
+}
+
+.about-section {
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 40px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.about-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.social-links img {
+  width: 47px;
+  height: auto;
+}
+
+#spoofers {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+#spoofers > * {
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  max-width: 1200px;
+  max-height: 1200px;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+.spoofers-title {
+  text-align: center;
+  font-family: 'Saira Condensed', sans-serif; /* Yeni font */
+  font-size: 42px;
+  font-weight: 700;
+  color: red;
+  margin-bottom: 40px;
+
+  /* Dış çizgi kırmızı */
+  -webkit-text-stroke: 2px rgb(255, 255, 255);
+
+  /* Parlama efekti */
+  text-shadow: 
+    0 0 10px rgb(0, 3, 177),
+    0 0 20px rgb(0, 3, 177),
+    0 0 40px rgb(0, 3, 177),
+    0 0 80px rgb(0, 3, 177);
+}
+
+
+#spoofers h2 {
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: -50px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 20; /* POPÜLER’in üstüne çıkarmak için yüksek değer */
+  color: #FF0000;
+  -webkit-text-stroke: 1px #fff;
+  text-shadow: 
+    0 0 5px red,
+    0 0 10px green,
+    0 0 15px blue;
+  display: inline-block;
+}
+
+
+
+
+/* Pro Spoofer kutusu hover efekti */
+.price-card.best:hover {
+  animation: rgb-glow 1.5s infinite alternate;
+}
+
+@keyframes rgb-glow {
+  0% { box-shadow: 0 0 5px red, 0 0 10px green, 0 0 15px blue; border-color: red; }
+  25% { box-shadow: 0 0 5px orange, 0 0 10px purple, 0 0 15px cyan; border-color: orange; }
+  50% { box-shadow: 0 0 5px yellow, 0 0 10px magenta, 0 0 15px lime; border-color: yellow; }
+  75% { box-shadow: 0 0 5px pink, 0 0 10px lightblue, 0 0 15px violet; border-color: pink; }
+  100% { box-shadow: 0 0 5px red, 0 0 10px green, 0 0 15px blue; border-color: red; }
+}
+
+.tick { color: green; font-weight: bold; }
+.cross { color: red; font-weight: bold; }
+
+/* Info Sidebar */
+.info-sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+  width: 220px;
+}
+
+.info-card {
+  background-color: #0b0c10;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.info-card h3 {
+  color: #00ff66;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+.spoofers-section {
+  flex: 1;
+  margin-top: 100px;   /* Yukarıdan boşluk */
+}
+
+.spoofers-section h2 {
+  margin-bottom: 30px; /* Başlık ile kartlar arasına boşluk */
+}
+.icon img {
+  width: 50px;   /* istediğin boyut */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* ortalamak için */
+}
+.footer-subtext {
+  opacity: 0.6; /* %60 görünürlük */
+}
+.footer-text {
+  opacity: 0.6; /* %60 görünürlük */
+}
+.footer-contact {
+  opacity: 0.6; /* %60 görünürlük */
+}
+.spoofers-page footer {
+  margin-top: 40px;
+  padding-top: -35px;
+}
+
+.spoofers-page footer p {
+  margin-top: 0;
+}
+.spoofers-page .video-box {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 320px; /* genişlik dar */
+  height: 400px; /* uzun dikey görünüm */
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.spoofers-page .video-box iframe {
+  width: 100%;
+  height: 100%;
+}
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #070b14; /* senin site bg rengin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.preloader-logo {
+  width: 150px;
+  height: auto;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.7; }
+  to   { transform: scale(1.1); opacity: 1; }
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+/* Sağ üst köşe butonları */
+.auth-buttons {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  display: flex;
+  gap: 12px;
+}
+
+.auth-buttons a {
+  padding: 10px 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Giriş Yap butonu */
+.login-btn {
+  background: linear-gradient(135deg, #007BFF, #0056b3);
+  color: white;
+}
+
+/* Kayıt Ol butonu */
+.signup-btn {
+  background: linear-gradient(135deg, #28A745, #1e7e34);
+  color: white;
+}
+
+/* Hover efekti */
+.auth-buttons a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0.9;
+}

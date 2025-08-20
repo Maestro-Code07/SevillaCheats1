@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap - SevillaCheats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { margin:0; font-family:'Saira Condensed',sans-serif; background:#070b14; color:#e6edf3; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .login-container { background:#0e1422; padding:40px; border-radius:18px; box-shadow:0 0 25px rgba(0,0,0,0.6); text-align:center; width:360px; animation:fadeIn 0.8s ease-in-out; }
+    .login-container img { width:150px; margin-bottom:20px; }
+    .login-container h2 { margin-bottom:20px; color:#ff2e2e; font-size:28px; font-weight:700; }
+    .input-group { position:relative; margin:10px 0; }
+    .login-container input { width:100%; padding:12px; border:none; border-radius:12px; background:#1a2235; color:#e6edf3; font-size:15px; }
+    .login-container input:focus { outline:none; border:2px solid #ff2e2e; background:#141b2b; }
+    .toggle-password { position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; font-size:16px; color:#94a3b8; }
+    .toggle-password:hover { color:#e6edf3; }
+    .login-container button { width:100%; padding:13px; background:#007BFF; border:none; border-radius:50px; color:white; font-weight:bold; cursor:pointer; transition:0.3s; margin-top:10px; font-size:16px; }
+    .login-container button:hover { background:#0056b3; transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.4); }
+    .login-container p { margin-top:15px; font-size:14px; color:#94a3b8; }
+    .login-container a { color:#28A745; text-decoration:none; font-weight:600; }
+    .login-container a:hover { text-decoration:underline; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="logo.png" alt="Logo">
+    <h2>Giriş Yap</h2>
+    <form action="/login" method="POST">
+      <div class="input-group">
+        <input type="email" name="email" placeholder="E-Posta" required>
+      </div>
+      <div class="input-group">
+        <input type="password" id="login_password" name="password" placeholder="Şifre" required>
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('login_password', this)"></i>
+      </div>
+      <button type="submit">Giriş Yap</button>
+    </form>
+    <p>Hesabınız yok mu? <a href="register.html">Kayıt Ol</a></p>
+  </div>
+
+  <script>
+    function togglePassword(id, el){
+      const input = document.getElementById(id);
+      if(input.type==='password'){ input.type='text'; el.classList.remove('fa-eye'); el.classList.add('fa-eye-slash'); }
+      else { input.type='password'; el.classList.remove('fa-eye-slash'); el.classList.add('fa-eye'); }
+    }
+  </script>
+</body>
+</html>
