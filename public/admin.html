@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Paneli</title>
+<style>
+body { font-family:sans-serif; background:#070b14; color:#e6edf3; padding:20px; }
+input, button { padding:5px 10px; margin:2px; border-radius:5px; border:none; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid #fff; padding:10px; text-align:left; }
+th { background:#ff2e2e; }
+button { cursor:pointer; }
+</style>
+</head>
+<body>
+<h1>Admin Paneli - Kullanıcılar</h1>
+<input type="text" id="search" placeholder="Email ara...">
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>İşlem</th>
+    </tr>
+  </thead>
+  <tbody id="user-list"></tbody>
+</table>
+
+<script>
+async function fetchUsers(){
+  try{
+    const res = await fetch('/api/admin/users', { credentials:'include' });
+    const data = await res.json();
+    if(!res.ok){ alert(data.error); return; }
+    renderUsers(data.users);
+  } catch(err){
+    console.error(err); alert('Sunucu hatası');
+  }
+}
+
+function renderUsers(users){
+  const tbody = document.getElementById('user-list');
+  tbody.innerHTML = '';
+  users.forEach(u=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${u._id}</td>
+      <td>${u.email}</td>
+      <td>
+        <button onclick="deleteUser('${u._id}')">Sil</button>
+        <button onclick="resetPassword('${u._id}')">Şifre Reset</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Kullanıcı sil
+async function deleteUser(id){
+  if(!confirm('Kullanıcıyı silmek istediğine emin misin?')) return;
+  const res = await fetch('/api/admin/users/'+id, { method:'DELETE', credentials:'include' });
+  const data = await res.json();
+  alert(data.message || data.error);
+  fetchUsers();
+}
+
+// Şifre reset
+async function resetPassword(id){
+  const newPassword = prompt('Yeni şifreyi girin:');
+  if(!newPassword) return;
+  const res = await fetch('/api/admin/users/'+id+'/reset-password', {
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    credentials:'include',
+    body: JSON.stringify({ password:newPassword })
+  });
+  const data = await res.json();
+  alert(data.message || data.error);
+}
+
+// Arama
+document.getElementById('search').addEventListener('input', e=>{
+  const term = e.target.value.toLowerCase();
+  const rows = document.querySelectorAll('#user-list tr');
+  rows.forEach(r=>{
+    const email = r.cells[1].textContent.toLowerCase();
+    r.style.display = email.includes(term) ? '' : 'none';
+  });
+});
+
+fetchUsers();
+</script>
+</body>
+</html>

@@ -28,13 +28,13 @@
   <div class="login-container">
     <img src="logo.png" alt="Logo">
     <h2>Giriş Yap</h2>
-    <form action="/login" method="POST">
+    <form id="login-form">
       <div class="input-group">
-        <input type="email" name="email" placeholder="E-Posta" required>
+        <input type="email" id="login-email" name="email" placeholder="E-Posta" required>
       </div>
       <div class="input-group">
-        <input type="password" id="login_password" name="password" placeholder="Şifre" required>
-        <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('login_password', this)"></i>
+        <input type="password" id="login-password" name="password" placeholder="Şifre" required>
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('login-password', this)"></i>
       </div>
       <button type="submit">Giriş Yap</button>
     </form>
@@ -42,11 +42,53 @@
   </div>
 
   <script>
+    // Toggle Password Göster/Gizle
     function togglePassword(id, el){
       const input = document.getElementById(id);
-      if(input.type==='password'){ input.type='text'; el.classList.remove('fa-eye'); el.classList.add('fa-eye-slash'); }
-      else { input.type='password'; el.classList.remove('fa-eye-slash'); el.classList.add('fa-eye'); }
+      if(input.type==='password'){ 
+        input.type='text'; 
+        el.classList.remove('fa-eye'); 
+        el.classList.add('fa-eye-slash'); 
+      } else { 
+        input.type='password'; 
+        el.classList.remove('fa-eye-slash'); 
+        el.classList.add('fa-eye'); 
+      }
     }
+
+    // Login Form Submit
+    document.getElementById('login-form').addEventListener('submit', async function(event){
+      event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        // Backend login route'u
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if(res.ok){
+          // Admin mi kontrol et
+          if(data.user.isAdmin){
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'index.html';
+          }
+        } else {
+          alert(data.error || 'Hatalı giriş bilgileri');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Sunucu hatası');
+      }
+    });
   </script>
 </body>
 </html>
